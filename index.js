@@ -37,6 +37,13 @@ for (const file of eventFiles) {
   }
 }
 
+client.on(Events.InteractionCreate,  async (interaction) => {
+	if(!interaction.isStringSelectMenu()) return;
+
+	if(interaction.customId === "line") {
+		await interaction.reply({content: `${interaction.values[0]}`})
+	}
+})
 
 
 client.login(config.token);
