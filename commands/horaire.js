@@ -1,7 +1,8 @@
 const { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
-const horaires = require('../utils/horaire');
 const PDFImage = require('pdf-image').PDFImage;
 const fs = require('fs');
+const utils = require('../utils/utils');
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('horaire')
@@ -13,7 +14,7 @@ module.exports = {
 	async execute(interaction) {
         let lines = {};
         const query = interaction.options.getString('ligne');
-        lines = await horaires.getLines(query);
+        lines = await utils.getLines(query);
         
         if (lines.length == 1){
 
@@ -40,11 +41,9 @@ module.exports = {
             const row = new ActionRowBuilder()
 			.addComponents(select);
             await interaction.reply({
-                content: 'Chosissez la ligne correspondante',
+                content: 'Choisissez la ligne correspondante',
                 components: [row],
             });
-             
-            
         }
         else {
 		    await interaction.reply('Aucune ligne '+query+' trouvé');

@@ -36,8 +36,17 @@ const getLines = async (line) => {
     return {};
   }
 };
-const horaires = {
-  getLines : getLines
+
+function parseHTML(html) {
+  const $ = cheerio.load(html);
+  return $.text();
 }
 
-module.exports = horaires;
+
+
+const utils = {
+  getLines : getLines,
+  parseHTML : parseHTML,
+}
+
+module.exports = utils;
